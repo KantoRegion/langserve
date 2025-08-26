@@ -1,4 +1,5 @@
 """Test the server and client together."""
+
 import asyncio
 import datetime
 import json
@@ -1151,7 +1152,7 @@ async def test_include_callback_events(mocker: MockerFixture) -> None:
                     "metadata": {
                         "__langserve_endpoint": "invoke",
                         "__langserve_version": None,
-                        "__useragent": "python-httpx/0.27.2",
+                        "__useragent": "python-httpx/0.28.1",
                     },
                     "parent_run_id": None,
                     "serialized": None,
@@ -1213,7 +1214,7 @@ async def test_include_callback_events_batch() -> None:
                         "metadata": {
                             "__langserve_endpoint": "batch",
                             "__langserve_version": None,
-                            "__useragent": "python-httpx/0.27.2",
+                            "__useragent": "python-httpx/0.28.1",
                         },
                         "parent_run_id": None,
                         "run_id": None,
@@ -1238,7 +1239,7 @@ async def test_include_callback_events_batch() -> None:
                         "metadata": {
                             "__langserve_endpoint": "batch",
                             "__langserve_version": None,
-                            "__useragent": "python-httpx/0.27.2",
+                            "__useragent": "python-httpx/0.28.1",
                         },
                         "parent_run_id": None,
                         "run_id": None,
@@ -1640,12 +1641,7 @@ async def test_input_config_output_schemas() -> None:
                         "properties": {
                             "template": {
                                 "default": "say {name}",
-                                "description": "The "
-                                "template "
-                                "to use "
-                                "for "
-                                "the "
-                                "prompt",
+                                "description": "The template to use for the prompt",
                                 "title": "Template",
                                 "type": "string",
                             }
@@ -1676,12 +1672,7 @@ async def test_input_config_output_schemas() -> None:
                         "properties": {
                             "template": {
                                 "default": "say {name}",
-                                "description": "The "
-                                "template "
-                                "to use "
-                                "for "
-                                "the "
-                                "prompt",
+                                "description": "The template to use for the prompt",
                                 "title": "Template",
                                 "type": "string",
                             }
@@ -2429,9 +2420,9 @@ async def test_endpoint_configurations() -> None:
                     error_codes = {404}
                 else:
                     error_codes = {404, 405}
-                assert (
-                    response.status_code not in error_codes
-                ), f"endpoint {endpoint} should be on"
+                assert response.status_code not in error_codes, (
+                    f"endpoint {endpoint} should be on"
+                )
 
     with pytest.raises(ValueError):
         # Passing "invoke" instead of ["invoke"]

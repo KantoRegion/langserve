@@ -7,7 +7,7 @@ build-playground:
 	cd ./langserve/playground && yarn build
 
 build: build-playground
-	poetry build
+	uv build
 
 ######################
 # TESTING AND COVERAGE
@@ -17,10 +17,10 @@ build: build-playground
 TEST_FILE ?= tests/unit_tests/
 
 test:
-	poetry run pytest --disable-socket --allow-unix-socket $(TEST_FILE)
+	uv run pytest --disable-socket --allow-unix-socket $(TEST_FILE)
 
 test_watch:
-	poetry run ptw . -- $(TEST_FILE)
+	uv run ptw . -- $(TEST_FILE)
 
 ######################
 # LINTING AND FORMATTING
@@ -32,18 +32,18 @@ lint format: PYTHON_FILES=.
 lint_diff format_diff: PYTHON_FILES=$(shell git diff --relative=. --name-only --diff-filter=d master | grep -E '\.py$$|\.ipynb$$')
 
 lint lint_diff:
-	poetry run ruff .
-	poetry run ruff format $(PYTHON_FILES) --check
+	uv run ruff .
+	uv run ruff format $(PYTHON_FILES) --check
 
 format format_diff:
-	poetry run ruff format $(PYTHON_FILES)
-	poetry run ruff --select I --fix $(PYTHON_FILES)
+	uv run ruff format $(PYTHON_FILES)
+	uv run ruff --select I --fix $(PYTHON_FILES)
 
 spell_check:
-	poetry run codespell --toml pyproject.toml
+	uv run codespell --toml pyproject.toml
 
 spell_fix:
-	poetry run codespell --toml pyproject.toml -w
+	uv run codespell --toml pyproject.toml -w
 
 ######################
 # HELP
