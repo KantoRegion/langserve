@@ -772,9 +772,15 @@ def add_routes(
             pass
         # Fallback for Pydantic v1
         try:
-            upd = getattr(m, "update_forward_refs", None)
-            if callable(upd):
-                upd()
+            with warnings.catch_warnings():
+                warnings.filterwarnings(
+                    "ignore",
+                    ".*`update_forward_refs` method is deprecated.*",
+                    category=DeprecationWarning,
+                )
+                upd = getattr(m, "update_forward_refs", None)
+                if callable(upd):
+                    upd()
         except Exception:
             pass
 
